@@ -16,7 +16,8 @@ var zoom = 1;
 var csvLink = 'url';
 
 function preload() {
-    mapImage = loadImage(imageURL);
+    mapImage = loadImage(imageURL + centerLat + ',' + centerLon ',' + zoom +
+        '/' + ww + 'x' + hh + token);
     earthquakes = loadStrings(csvLink)
 }
 
