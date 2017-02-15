@@ -30,6 +30,7 @@ function mercatorX(lon) {
     return a * b;
 }
 
+
 // Convert latitude to Web-Mercator pixels
 function mercatorY(lat) {
     lat = radians(lat);
@@ -38,6 +39,7 @@ function mercatorY(lat) {
     var c = PI - log(b)
     return a * c
 }
+
 
 function setup() {
     createCanvas(ww, hh);
