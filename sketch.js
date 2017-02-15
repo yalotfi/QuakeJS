@@ -1,7 +1,7 @@
 
 // Global Variables
 var mapImage;
-var earthquake;
+var earthquakes;
 
 // Mapbox API things
 var centerLat = 0;
@@ -17,7 +17,7 @@ var csvLink = 'url';
 
 function preload() {
     mapImage = loadImage(imageURL);
-    earthquake = loadStrings(csvLink)
+    earthquakes = loadStrings(csvLink)
 }
 
 
@@ -43,4 +43,26 @@ function setup() {
     translate(width / 2, height / 2);
     imageMode(CENTER);
     image(mapImage, 0, 0);
+
+    var centerX = mercatorX(centerLon);
+    var centerY = mercatorY(centerLat);
+
+    for (var i = 1; i < earthquakes.length; i++) {
+        var data = earthquakes[i].split(/,/);
+        var lat = data[1];
+        var lon = data[2];
+        var mag = data[4];
+        var x = mercatorX(lon) - centerX;
+        var y = mercatorY(lat) - centerY;
+
+        mag = pow(10, mag);
+        mag = sqrt(mag);
+
+        var maxMag = sqrt(pow(10, 10));
+        var d = map(mag, 0, maxMag, 0, 100);
+
+        stroke(255, 0, 255);
+        fill(255, 0, 255, 200);
+        ellipse(x, y, d, d);
+    }
 }
